@@ -19,11 +19,11 @@ public:
         this->weight = weight;
     }
 
-    // Funcion que devuelve la arista inicial
+    // Funcion que devuelve el vertice inicial
     int from()
     { return v; }
 
-    // Funcion que devuelve la arista final
+    // Funcion que devuelve el vertice final
     int to()
     { return w; }
 

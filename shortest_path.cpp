@@ -15,7 +15,6 @@ public:
     {
         this->s = s;
 
-
         for (int v = 0; v < G.vertex(); v++) {
             DirectedEdge phEdge(s, v, INFINITY);
             edge.push_back(phEdge);
@@ -70,11 +69,22 @@ private:
 
 int main()
 {
-    Graph G(5);
-    G.addEdge(DirectedEdge(0, 1, 1.3));
-    G.addEdge(DirectedEdge(1, 2, 2));
-    G.addEdge(DirectedEdge(2, 3, 4));
-    G.addEdge(DirectedEdge(0, 4, 3.1));
+    Graph G(8);
+    G.addEdge(DirectedEdge(4, 5, 0.35));
+    G.addEdge(DirectedEdge(5, 4, 0.35));
+    G.addEdge(DirectedEdge(4, 7, 0.37));
+    G.addEdge(DirectedEdge(5, 7, 0.28));
+    G.addEdge(DirectedEdge(7, 5, 0.28));
+    G.addEdge(DirectedEdge(5, 1, 0.32));
+    G.addEdge(DirectedEdge(0, 4, 0.38));
+    G.addEdge(DirectedEdge(0, 2, 0.26));
+    G.addEdge(DirectedEdge(7, 3, 0.39));
+    G.addEdge(DirectedEdge(1, 3, 0.29));
+    G.addEdge(DirectedEdge(2, 7, 0.34));
+    G.addEdge(DirectedEdge(6, 2, 0.4));
+    G.addEdge(DirectedEdge(3, 6, 0.52));
+    G.addEdge(DirectedEdge(6, 0, 0.58));
+    G.addEdge(DirectedEdge(6, 4, 0.93));
 
     DijkstraSP sp(G, 0);
     for (int v = 0; v < G.vertex(); v++) {

@@ -1,10 +1,16 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
+/*  Cola de prioridad indexada
+ *  Es una cola de prioridad que es ordenada dependiendode unas llaves(leys)
+ *  Ademas de que contiene indice o valores.
+ *  parametros:
+ *      NMAX = Maxima cantidad de elementos de la cola
+*/
 class MinIndexedPQ
 {
 public:
-    // Crea un MinIndexedPQ vacio el cual puede contener hasta NMAX elementos
+    // Constructor. Crea un MinIndexedPQ vacio el cual puede contener hasta NMAX elementos
     MinIndexedPQ(int NMAX)
     {
         this->NMAX = NMAX;
@@ -16,6 +22,7 @@ public:
             index[i] = -1;
     }
 
+    // Destructor. Elimina la cola despues de ser usada.
     ~MinIndexedPQ()
     {
         delete [] keys;
@@ -54,7 +61,6 @@ public:
         bubbleUp(index[i]);
     }
 private:
-    // intercambia los valores
     void swap(int i, int j)
     {
         int t = heap[i];

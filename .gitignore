@@ -11,3 +11,5 @@
 
 # CodeBlocks Projects
 *.cbp
+*.depend
+*.layout

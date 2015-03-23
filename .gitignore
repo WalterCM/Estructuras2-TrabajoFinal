@@ -8,3 +8,6 @@
 # Executables
 *.exe
 *.out
+
+# CodeBlocks Projects
+*.cbp

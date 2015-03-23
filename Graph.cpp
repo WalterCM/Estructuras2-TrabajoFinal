@@ -27,7 +27,7 @@ public:
     int to()
     { return w; }
 
-    // Funcion que devuelve el pseo
+    // Funcion que devuelve el peso
     double getWeight()
     { return weight; }
 
@@ -35,6 +35,7 @@ public:
     std::string toString()
     {
         //TODO: Devolver la version string de la arista
+        return "";
     }
 protected:
 private:
@@ -81,6 +82,7 @@ public:
     int vertex()
     {
         //TODO: Agregar la funcion que devuelve la cantidad de vertices
+        return 0;
     }
 protected:
 private:
@@ -88,14 +90,19 @@ private:
     std::list<DirectedEdge>  *adjacent;
 };
 
+typedef EdgeWeightedDigraph Graph;
+
 // Test client
 int main()
 {
-    EdgeWeightedDigraph G(5);
-    DirectedEdge edge(1, 2, 1);
-    G.addEdge(edge);
+    Graph G(5);
+    G.addEdge(DirectedEdge(1, 2, 1.3));
+    G.addEdge(DirectedEdge(1, 3, 2));
+    G.addEdge(DirectedEdge(1, 5, 4));
+    G.addEdge(DirectedEdge(1, 6, 3.1));
     for (DirectedEdge e : G.adj(1)) {
         std::cout << e.from() << " -> ";
         std::cout << e.to() << " peso: " << e.getWeight();
+        std::cout << std::endl;
     }
 }

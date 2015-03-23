@@ -1,7 +1,10 @@
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
 class MinIndexedPQ
 {
 public:
-    // Create an empty MinIndexedPQ which can contain atmost NMAX elements
+    // Crea un MinIndexedPQ vacio el cual puede contener hasta NMAX elementos
     MinIndexedPQ(int NMAX)
     {
         this->NMAX = NMAX;
@@ -9,8 +12,8 @@ public:
         keys = new int[NMAX + 1];
         heap = new int[NMAX + 1];
         index = new int[NMAX + 1];
-        for(int i = 0; i <= NMAX; i++)
-        index[i] = -1;
+        for (int i = 0; i <= NMAX; i++)
+            index[i] = -1;
     }
 
     ~MinIndexedPQ()
@@ -19,13 +22,13 @@ public:
         delete [] heap;
         delete [] index;
     }
-    // check if the PQ is empty
+    // esta vacio?
     bool isEmpty() { return N == 0; }
 
-    // check if i is an index on the PQ
+    // es i parte del priority queue?
     bool contains(int i) { return index[i] != -1; }
 
-    // associate key with index i; 0 < i < NMAX
+    // asocia el key con el indice i; 0 < i < NMAX
     void insert(int i, int key) {
         N++;
         index[i] = N;
@@ -34,8 +37,7 @@ public:
         bubbleUp(N);
     }
 
-    // delete the minimal key and return its associated index
-    // Warning: Don't try to read from this index after calling this function
+    // elimina el key menor y retorna el indice asociado con el key en cuestion
     int deleteMin() {
         int min = heap[1];
         swap(1, N--);
@@ -45,23 +47,25 @@ public:
         return min;
     }
 
-    // decrease the key associated with index i to the specified value
+    // reduce el key asociado con el indice i hasta el valor especificado
     void decreaseKey(int i, int key)
     {
         keys[i] = key;
         bubbleUp(index[i]);
     }
 private:
-    int NMAX, N, *heap, *index, *keys;
+    // intercambia los valores
     void swap(int i, int j)
     {
-        int t = heap[i]; heap[i] = heap[j]; heap[j] = t;
+        int t = heap[i];
+        heap[i] = heap[j];
+        heap[j] = t;
         index[heap[i]] = i; index[heap[j]] = j;
     }
 
     void bubbleUp(int k)
     {
-        while(k > 1 && keys[heap[k / 2]] > keys[heap[k]]) {
+        while (k > 1 && keys[heap[k / 2]] > keys[heap[k]]) {
             swap(k, k / 2);
             k = k / 2;
         }
@@ -72,12 +76,21 @@ private:
         int j;
         while(2 * k <= N) {
             j = 2 * k;
-            if(j < N && keys[heap[j]] > keys[heap[j + 1]])
-            j++;
-            if(keys[heap[k]] <= keys[heap[j]])
-            break;
+            if (j < N && keys[heap[j]] > keys[heap[j + 1]])
+                j++;
+            if (keys[heap[k]] <= keys[heap[j]])
+                break;
             swap(k, j);
             k = j;
         }
     }
+
+    int NMAX;
+    int N;
+    int *heap;
+    int *index;
+    int *keys;
 };
+
+
+#endif // UTILS_HPP

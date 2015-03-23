@@ -4,8 +4,7 @@
 #include <limits>
 #include <cstdlib>
 #include "graph.hpp"
-#include "indexminpq.hpp"
-using namespace std;
+#include "utils.hpp"
 
 const double INFINITY = std::numeric_limits<int>::max();
 
@@ -48,10 +47,6 @@ public:
         for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
             path.push_back(e);
         }
-        cout << "path0: " << path[0].from() << endl;
-        cout << "path0: " << path[0].to() << endl;
-        cout << "path1: " << path[1].from() << endl;
-        cout << "path1: " << path[1].to() << endl;
         return path;
     }
 private:
@@ -82,14 +77,14 @@ int main()
     G.addEdge(DirectedEdge(0, 4, 3.1));
 
     DijkstraSP sp(G, 0);
-//    for (int v = 0; v < G.vertex(); v++) {
-//        std::cout << "0" << " -> " << v << " " << sp.distTo(v) << std::endl;
-        for (DirectedEdge e : sp.pathTo(3)) {
+    for (int v = 0; v < G.vertex(); v++) {
+        std::cout << "0" << " -> " << v << " " << sp.distTo(v) << std::endl;
+        for (DirectedEdge e : sp.pathTo(v)) {
             std::cout << e.toString();
-            std::cout << "distancia: " << e.getWeight() << endl;
+            std::cout << "distancia: " << e.getWeight() << std::endl;
         }
         std::cout << std::endl;
-//    }
+    }
     std::exit(1);
 }
 

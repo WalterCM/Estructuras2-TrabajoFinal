@@ -92,7 +92,7 @@ private:
 
 typedef EdgeWeightedDigraph Graph;
 
-// Test client
+// Test client a
 int main()
 {
     Graph G(5);

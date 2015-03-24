@@ -11,7 +11,7 @@ Hay una version completa con interfaz grafica y varias versiones por algoritmo p
 
 ### Wiki
 
-[](https://github.com/WalterCM/Estructuras2-TrabajoFinal/wiki)
+[TrabajoFinal/wiki](https://github.com/WalterCM/Estructuras2-TrabajoFinal/wiki)
 
 ### Integrantes
 

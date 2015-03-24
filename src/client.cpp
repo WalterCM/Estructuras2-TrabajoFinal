@@ -7,6 +7,9 @@ using namespace std;
 
 int main()
 {
+    int x;
+    cout << "hola" << endl;
+    cin >> x;
     sf::RenderWindow window(sf::VideoMode(800, 600), "Programa de Caminos Minimos!");
 
     Graph G(10);

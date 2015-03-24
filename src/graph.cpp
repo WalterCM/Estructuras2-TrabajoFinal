@@ -17,7 +17,7 @@ Vertex::Vertex(int i, int v)
     shape.setPosition(x, y);
     shape.setFillColor(sf::Color::White);
 
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("Content/arial.ttf")) {
         cout << "Not loading" << endl;
         std::exit(-1);
     }
@@ -76,7 +76,7 @@ DirectedEdge::DirectedEdge(int v, int w, double weight, int amount) : vVertex(v,
     else if ((wy - vy) > 0 && (wx - vx) > 0)
         angle = atan(m) * 180 / PI;
 
-    texture.loadFromFile("arrow.png");
+    texture.loadFromFile("Content/arrow.png");
     sprite.setPosition(vVertex.getPosition());
     const float d1 = 0.5;
     double angleInt = 2.0 * PI * abs(v - w) / amount;

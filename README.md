@@ -1,13 +1,18 @@
-# Caminos minimos
+## Caminos minimos
 
 Implemetacion de diversos algoritmos para hallar el camino mas corto entre 2 vertices en un grafo.
 
 Hay una version completa con interfaz grafica y varias versiones por algoritmo para consola.
 
-## Algoritmos
+### Algoritmos
 
-1. Algoritmo de Dijkstras
+1. Algoritmo de Dijkstra
+2. 
 
-## Wiki
+### Wiki
 
-## Integrantes
+[](https://github.com/WalterCM/Estructuras2-TrabajoFinal/wiki)
+
+### Integrantes
+
+Capa Macedo Walter

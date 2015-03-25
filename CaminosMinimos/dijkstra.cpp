@@ -66,6 +66,9 @@ private:
             dist[w] = dist[v] + e.getWeight();
             edge[w] = e;
         }
+
+        if (pq.contains(w)) pq.decreaseKey(w, dist[w]);
+        else                pq.insert(w, dist[w]);
     }
     int s;
     double *dist;

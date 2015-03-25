@@ -37,7 +37,7 @@ DirectedEdge::DirectedEdge(int v, int w, double weight, int amount) : vVertex(v,
         angle = atan(m) * 180 / PI;
 
     // Carga la textura de la flecha para las aristas
-    texture.loadFromFile("Content/arrow.png");
+    texture.loadFromFile(ARROW_FILE);
 
     // Configura la posicion inicial de la flecha
     sprite.setPosition(vVertex.getPosition());

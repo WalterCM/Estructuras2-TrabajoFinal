@@ -1,3 +1,4 @@
+#include <sstream>
 
 #include "shortest_path.hpp"
 using namespace std;
@@ -27,6 +28,14 @@ DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
     }
 }
 
+std::string DijkstraSP::distToString(int v)
+{
+    if (dist[v] == INFINITY)    return "INFINITO";
+    std::ostringstream  ss;
+    ss << dist[v];
+    return ss.str();
+}
+
 std::list<DirectedEdge> DijkstraSP::pathTo(int v)
 {
     std::vector<DirectedEdge> temp;
@@ -41,6 +50,13 @@ std::list<DirectedEdge> DijkstraSP::pathTo(int v)
         path.push_front(e);
 
     return path;
+}
+
+std::string DijkstraSP::getSourceString()
+{
+    std::ostringstream  ss;
+    ss << s;
+    return ss.str();
 }
 
 void DijkstraSP::relax(DirectedEdge e)

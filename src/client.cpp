@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 #include "graph.hpp"
@@ -35,11 +36,27 @@ public:
         // Dibuja el grafo entero
         G->draw(&window);
 
+        // String que se usara para el mensaje de salida
+        string out = "";
+
         // Dibuja el arbol generador de color amarillo
         if (spStarted) {
+
             for (int i = 0; i < G->vertex(); i++) {
+                ostringstream  ss;
+                ss << i;
+                out += "Desde " + sp->getSourceString() + " hasta " + ss.str() +
+                        "\td = " + sp->distToString(i) + "\n";
                 for (DirectedEdge e : sp->pathTo(i))
+                    cout << "\t" << e.toString();
+
+                cout << endl<< endl;
+
+                for (DirectedEdge e : sp->pathTo(i)) {
                     e.draw(&window, sf::Color::Yellow);
+                    out +=e.toString() + " ";
+                }
+                out += "\n\n";
             }
         }
 
@@ -48,6 +65,15 @@ public:
             for (DirectedEdge e : sp->pathTo(sink))
                 e.draw(&window, sf::Color::Red);
         }
+        title.setFont(font);
+        window.draw(title);
+
+        credits.setFont(font);
+        window.draw(credits);
+
+        output.setFont(font);
+        output.setString(out);
+        window.draw(output);
         window.display();
     }
 
@@ -100,6 +126,7 @@ private:
     void startNewGraph()
     {
         spStarted = false;
+        shortP = false;
         int v = -1;
         do {
             cout << "\n\tcuantos verticse desea que tenga el grafo?: " << endl;
@@ -156,6 +183,25 @@ private:
         if (G->vertex() > 0) {
             startedGUI = true;
             window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Programa de Caminos Minimos!");
+
+            font.loadFromFile(FONT_FILE);
+
+            title.setCharacterSize(TITLE_CHAR_SIZE);
+            title.setColor(sf::Color::White);
+            title.setPosition(TITLE_POS_X, TITLE_POS_Y);
+            title.setString("Caminos minimos (Dijkstra)");
+
+            credits.setCharacterSize(CREDITS_CHAR_SIZE);
+            credits.setColor(sf::Color::White);
+            credits.setPosition(CREDITS_POS_X, CREDITS_POS_Y);
+            string crStr = "CREDITOS:\tCapa Macedo, Walter";
+            crStr += "\n\t\t\t\t\t\tChallhua Reynoso, Jefferson";
+            crStr += "\n\t\t\t\t\t\tQuintana Vasquez, Alez Alberto";
+            credits.setString(crStr);
+
+            output.setCharacterSize(OUTPUT_CHAR_SIZE);
+            output.setColor(sf::Color::White);
+            output.setPosition(OUTPUT_POS_X, OUTPUT_POS_Y);
         } else {
             cout << "\n\tError: El grafo tiene muy pocos vertices" << endl;
             wait();
@@ -183,8 +229,24 @@ private:
         }
 
         if (!startedGUI) {
+
+            char a;
+
+            do {
+                cout << "\n\tDesea visualizar el arbol de caminos cortos?(Y/N)" << endl;
+                prompt();
+                cin >> a;
+                a = toupper(a);
+                if (a == 'N') return;
+                if (a != 'Y') cout << "\n\tERROR: Solo se permiten Y, y, N, n" << endl;
+            } while (a != 'Y');
+
             for (int i = 0; i < G->vertex(); i++) {
-                cout << "\tDesde " << s << " hasta " << i << ": " << endl;
+                cout << "\n\tDesde " << s << " hasta " << i << "\t\td = ";
+                if (sp->distTo(i) == INFINITY)
+                    cout << "INFINITO:" << endl;
+                else
+                    cout << sp->distTo(i) << endl;
                 for (DirectedEdge e : sp->pathTo(i))
                     cout << "\t" << e.toString();
 
@@ -198,7 +260,7 @@ private:
     void shortestPath()
     {
         if (!spStarted) {
-            cout << "\tERROR: No se ha iniciado el algoritmo de Dijkstra" << endl;
+            cout << "\tERROR: No se ha iniciado el algoritmo de Dijkstra aun" << endl;
             return;
         } else {
             shortP = true;
@@ -206,14 +268,24 @@ private:
             prompt();
             cin >> sink;
         }
+
+        if (!startedGUI) {
+            cout << "\n\tDesde " << sp->getSource() << " hasta " << sink << "\t\td = " << sp->distTo(sink) << endl;
+            for (DirectedEdge e : sp->pathTo(sink))
+                cout << "\t" << e.toString();
+            cout << endl;
+            wait();
+        }
     }
 
     void executeTest()
     {
         system("cls");
-        cout << "\n\tEscoja el test que desea correr." << endl;
-        cout << "\n\t1. test1.txt" << endl;
-        cout << "\t2. test2.txt" << endl;
+        cout << "\n\tEscoja el test que desea ejecutar." << endl;
+        cout << "\n\t1. test1.txt  (5 vertices, 6 aristas)" << endl;
+        cout << "\t2. test2.txt  (8 vertices, 15 aristas)" << endl;
+        cout << "\t3. test3.txt  (8 vertices, 16 aristas)" << endl;
+        cout << "\t4. test4.txt  (10 vertices, 26 aristas)" << endl;
 
         prompt();
         int op;     cin >> op;
@@ -225,6 +297,15 @@ private:
         case 2:
             createGraphFromFile("tests/test2.txt");
             break;
+        case 3:
+            createGraphFromFile("tests/test3.txt");
+            break;
+        case 4:
+            createGraphFromFile("tests/test4.txt");
+            break;
+        case 5:
+            createGraphFromFile("tests/test5.txt");
+            break;
         default:
             break;
         }
@@ -234,6 +315,8 @@ private:
 
     void createGraphFromFile(string file)
     {
+        spStarted = false;
+        shortP = false;
         ifstream graphFile(file);
 
         int v, w;
@@ -263,15 +346,15 @@ private:
     {
         system("cls");
         cout << "\tCaminos minimos" << endl;
-        cout << "\n\t1. Creat nuevo grafo." << endl;
-        cout << "\t2. Agregar nueva arista." << endl;
-        cout << "\t3. Ejecutar test." << endl;
-        cout << "\t4. Crear un grafo desde un archivo de texto." << endl;
-        cout << "\t5. Dijkstra." << endl;
-        cout << "\t6. Generar el camino mas corto a un mismo vertice." << endl;
-        cout << "\t7. Mostrar GUI." << endl;
-        cout << "\t8. Cerrar  GUI." << endl;
-        cout << "\t9. Salir." << endl;
+        cout << "\n\t1. Creat nuevo grafo" << endl;
+        cout << "\t2. Agregar nueva arista" << endl;
+        cout << "\t3. Ejecutar tes." << endl;
+        cout << "\t4. Crear un grafo desde un archivo de texto" << endl;
+        cout << "\t5. Dijkstra" << endl;
+        cout << "\t6. Generar el camino mas corto a un unico vertice" << endl;
+        cout << "\t7. Mostrar GUI" << endl;
+        cout << "\t8. Cerrar  GUI" << endl;
+        cout << "\t9. Salir" << endl;
         int op;
         prompt();
         cin >> op;
@@ -290,6 +373,11 @@ private:
     DijkstraSP *sp;
 
     sf::RenderWindow window;
+    sf::Font font;
+    sf::Text title;
+    sf::Text output;
+    sf::Text credits;
+
     bool startedGUI = false;
     bool spStarted = false;
     bool shortP = false;
@@ -304,6 +392,5 @@ int main()
         if (c->isGUIStarded())
             c->draw();
         c->input();
-
     }
 }

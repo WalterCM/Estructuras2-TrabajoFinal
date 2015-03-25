@@ -23,9 +23,13 @@ public:
 
     // Funcion que devuelve la distancia entre la fuenta y un vertice v
     double distTo(int v) { return dist[v]; }
+    std::string distToString(int);
 
     // Funcion que devuelve el vector que contiene los adyacentes de un terminado sink
     std::list<DirectedEdge> pathTo(int);
+
+    int getSource()     { return s; }
+    std::string getSourceString();
 private:
     // Funcion auxiliar qyue contiene el metodo de relajacion
     void relax(DirectedEdge);

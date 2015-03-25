@@ -20,7 +20,7 @@ Vertex::Vertex(int i, int v)
     shape.setPosition(x, y);
     shape.setFillColor(sf::Color::White);
 
-    if (!font.loadFromFile("Content/arial.ttf")) {
+    if (!font.loadFromFile(FONT_FILE)) {
         std::exit(-1);
     }
 

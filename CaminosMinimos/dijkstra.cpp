@@ -96,6 +96,7 @@ int main()
     G.addEdge(DirectedEdge(6, 4, 0.93));
 
     DijkstraSP sp(&G, 0);
+    cout << endl;
     for (int v = 0; v < G.vertices(); v++) {
         cout << "Desde 0" << " hasta " << v << "  d = " << sp.distTo(v) << ": " << endl << endl;;
         for (DirectedEdge e : sp.pathTo(v)) {
@@ -104,6 +105,6 @@ int main()
         }
         cout << std::endl;
     }
-    exit(1);
+    return 0;
 }
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "graph.hpp"
 #include "shortest_path.hpp"
 
@@ -10,26 +11,28 @@ using namespace std;
 class Client
 {
 public:
-    Client()
-    {
-        G = new Graph();
-    }
+    // Crea un grafo vacio
+    Client()        { G = new Graph(); }
 
-    Client(int v)
-    {
-        G  = new Graph(v);
-    }
+    // Crea un grafo con v vertices
+    Client(int v)   { G  = new Graph(v); }
 
+    // Funcion que inicia un pregunta por la cantidad de vertices e inicia un nuevo grafo
     void startNewGraph()
     {
         spStarted = false;
-        cout << "\n\tcuantos verticse desea que tenga el grafo?: " << endl;
-        int v;
-        prompt();
-        cin >> v;
+        int v = -1;
+        do {
+            cout << "\n\tcuantos verticse desea que tenga el grafo?: " << endl;
+            prompt();
+            cin >> v;
+            if (v < 0)  cout << "\n\tERROR: El numero de grafos no puede ser negativo." << endl;
+        } while (v < 0);
+
         G = new Graph(v);
     }
 
+    // Funcion que pregunta por los vertices y el peso para formar una arista, y la agrega al grafo
     void addEdge()
     {
         if (G->vertex() == 0 || G->vertex() == 1) {
@@ -68,17 +71,19 @@ public:
         G->addEdge(DirectedEdge(v, w, we, G->vertex()));
     }
 
+    // Funcion que inicia la interfax grafica de usuario
     void startGUI()
     {
         if (G->vertex() > 0) {
             started = true;
-            window.create(sf::VideoMode(WIDTH, HEIGHT), "Programa de Caminos Minimos!");
+            window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Programa de Caminos Minimos!");
         } else {
             cout << "\n\tError: El grafo tiene muy pocos vertices" << endl;
             wait();
         }
     }
 
+    // Funcion que inicia el algoritmo de Dijkstra
     void startDijkstra()
     {
          cout << "\n\tCual sera el vertice fuente?" << endl;
@@ -95,6 +100,7 @@ public:
         }
     }
 
+    // Funcion que calcula el camino mas corto desde la fuente hacia un determinado vertice
     void shortestPath()
     {
         if (!spStarted) {
@@ -109,16 +115,10 @@ public:
         }
     }
 
-    bool isWindowOpen()
-    {
-        return window.isOpen();
-    }
+    bool isWindowOpen() { return window.isOpen();   }       // Devuelve true si la ventana esta abierta y false si esta cerrada
+    bool isGUIStarded() { return started;           }       // Devuelve true si el GUI ha sido inicializado y false si es que no
 
-    bool isGUIStarded()
-    {
-        return started;
-    }
-
+    // Funcion que dibuja los grafos, los vertices, las aristas y los caminos mas cortos
     void draw()
     {
         sf::Event event;
@@ -145,24 +145,25 @@ public:
         window.display();
     }
 
+    // Muestra el menu, captura las opciones escogidas y realiza las acciones deseadas
     void input()
     {
         int op;
         op = menu();
         switch (op) {
-        case 1:
+        case 1:                     // Crear nuevo grafo
             startNewGraph();
             break;
-        case 2:
+        case 2:                     // Agregar arista
             addEdge();
             break;
-        case 3:
+        case 3:                     // Inicia Dijkstra
             startDijkstra();
             break;
-        case 4:
+        case 4:                     // Calcular camino mas corto
             shortestPath();
             break;
-        case 5:
+        case 5:                     // Ejecutar tests
             G = new Graph(8);
             G->addEdge(DirectedEdge(0, 1, 5.0, G->vertex()));
             G->addEdge(DirectedEdge(0, 4, 9.0, G->vertex()));
@@ -237,8 +238,6 @@ private:
     bool spStarted = false;
     bool shortP = false;
     int sink = 0;
-    static const int WIDTH = 800;
-    static const int HEIGHT = 600;
 };
 
 int main()

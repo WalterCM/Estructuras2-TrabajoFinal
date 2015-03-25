@@ -1,6 +1,4 @@
-
 #include "utils.hpp"
-
 
 MinIndexedPQ::MinIndexedPQ(int NMAX)
 {

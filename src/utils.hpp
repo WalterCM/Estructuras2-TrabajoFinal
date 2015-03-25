@@ -32,10 +32,13 @@ public:
     void decreaseKey(int i, int key);
 
 private:
+    // Funcion auxiliar que intercambia i y j
     void swap(int i, int j);
 
+    // Funcion auxiliar que disminuye el key
     void bubbleUp(int k);
 
+    // Funcion auxiliar que aumenta el key
     void bubbleDown(int k);
 
     int NMAX;

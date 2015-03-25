@@ -15,4 +15,6 @@ Hay una version completa con interfaz grafica y varias versiones por algoritmo p
 
 ### Integrantes
 
-Capa Macedo Walter
+Capa Macedo, Walter Javier  
+Challhua Reynoso, Jefferson Romario  
+Quintana Vásquez, Alex Alberto  

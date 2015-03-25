@@ -25,7 +25,7 @@ public:
     double distTo(int v) { return dist[v]; }
     std::string distToString(int);
 
-    // Funcion que devuelve el vector que contiene los adyacentes de un terminado sink
+    // Funcion que devuelve el vector que contiene los adyacentes de un determinado sink
     std::list<DirectedEdge> pathTo(int);
 
     int getSource()     { return s; }

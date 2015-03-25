@@ -6,23 +6,25 @@
 #include "graph.hpp"
 #include "utils.hpp"
 
-const double INFINITY = std::numeric_limits<int>::max();
+using namespace std;
+
+const double INFINITY = numeric_limits<int>::max();
 
 class DijkstraSP
 {
 public:
-    DijkstraSP(EdgeWeightedDigraph G, int s) : pq(G.vertex())
+    DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
     {
         this->s = s;
 
-        for (int v = 0; v < G.vertex(); v++) {
+        for (int v = 0; v < G->vertex(); v++) {
             DirectedEdge phEdge(s, v, INFINITY);
             edge.push_back(phEdge);
         }
 
-        dist = new double[G.vertex()];
+        dist = new double[G->vertex()];
 
-        for (int v = 0; v < G.vertex(); v++) {
+        for (int v = 0; v < G->vertex(); v++) {
             dist[v] = INFINITY;
         }
         dist[s] = 0.0;
@@ -30,7 +32,7 @@ public:
         pq.insert(s, 0.0);
         while (!pq.isEmpty()) {
             int v = pq.deleteMin();
-            for (DirectedEdge e : G.adj(v))
+            for (DirectedEdge e : G->adj(v))
                 relax(e);
         }
     }
@@ -40,13 +42,20 @@ public:
         return dist[v];
     }
 
-    std::vector<DirectedEdge> pathTo(int v)
+    list<DirectedEdge> pathTo(int v)
     {
-        std::vector<DirectedEdge> path;
-        for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
-            path.push_back(e);
-        }
-        return path;
+        vector<DirectedEdge> temp;
+
+    for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
+        if (e.getWeight() != INFINITY)
+            temp.push_back(e);
+    }
+
+    list <DirectedEdge> path;
+    for (DirectedEdge e : temp)
+        path.push_front(e);
+
+    return path;
     }
 private:
     void relax(DirectedEdge e)
@@ -63,7 +72,7 @@ private:
     }
     int s;
     double *dist;
-    std::vector<DirectedEdge> edge;
+    vector<DirectedEdge> edge;
     MinIndexedPQ pq;
 };
 
@@ -86,15 +95,15 @@ int main()
     G.addEdge(DirectedEdge(6, 0, 0.58));
     G.addEdge(DirectedEdge(6, 4, 0.93));
 
-    DijkstraSP sp(G, 0);
+    DijkstraSP sp(&G, 0);
     for (int v = 0; v < G.vertex(); v++) {
-        std::cout << "0" << " -> " << v << " " << sp.distTo(v) << std::endl;
+        cout << "Desde 0" << " hasta " << v << "  d = " << sp.distTo(v) << ": " << endl << endl;;
         for (DirectedEdge e : sp.pathTo(v)) {
-            std::cout << e.toString();
-            std::cout << "distancia: " << e.getWeight() << std::endl;
+            cout << e.toString();
+            cout << "(" << e.getWeight() << ")" << endl;
         }
-        std::cout << std::endl;
+        cout << std::endl;
     }
-    std::exit(1);
+    exit(1);
 }
 

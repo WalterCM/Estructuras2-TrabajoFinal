@@ -27,15 +27,19 @@ DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
     }
 }
 
-std::vector<DirectedEdge> DijkstraSP::pathTo(int v)
+std::list<DirectedEdge> DijkstraSP::pathTo(int v)
 {
-    std::vector<DirectedEdge> path;
-    if (edge.empty()) return path;
+    std::vector<DirectedEdge> temp;
+
     for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
         if (e.getWeight() != INFINITY)
-            path.push_back(e);
-
+            temp.push_back(e);
     }
+
+    std::list <DirectedEdge> path;
+    for (DirectedEdge e : temp)
+        path.push_front(e);
+
     return path;
 }
 

@@ -25,7 +25,7 @@ public:
     double distTo(int v) { return dist[v]; }
 
     // Funcion que devuelve el vector que contiene los adyacentes de un terminado sink
-    std::vector<DirectedEdge> pathTo(int);
+    std::list<DirectedEdge> pathTo(int);
 private:
     // Funcion auxiliar qyue contiene el metodo de relajacion
     void relax(DirectedEdge);

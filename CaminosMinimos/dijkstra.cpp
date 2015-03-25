@@ -44,14 +44,14 @@ public:
 
     list<DirectedEdge> pathTo(int v)
     {
-        vector<DirectedEdge> temp;
+        std::vector<DirectedEdge> temp;
 
         for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
             if (e.getWeight() != INFINITY)
                 temp.push_back(e);
         }
 
-        list <DirectedEdge> path;
+        std::list <DirectedEdge> path;
         for (DirectedEdge e : temp)
             path.push_front(e);
 
@@ -65,10 +65,10 @@ private:
         if (dist[w] > dist[v] + e.getWeight()) {
             dist[w] = dist[v] + e.getWeight();
             edge[w] = e;
-        }
 
-        if (pq.contains(w)) pq.decreaseKey(w, dist[w]);
-        else                pq.insert(w, dist[w]);
+            if (pq.contains(w)) pq.decreaseKey(w, dist[w]);
+            else                pq.insert(w, dist[w]);
+        }
     }
     int s;
     double *dist;

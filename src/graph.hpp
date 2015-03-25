@@ -9,46 +9,49 @@
 
 #include <SFML/Graphics.hpp>
 
-const double PI = 3.14159265358979323846;
+#include "constants.hpp"
 
+const double PI = 3.14159265358979323846;       // Constante del numero PI
+
+/*  Clase para los vertices del grafo
+ *      parametros:
+ *      i = indice que indica el numero de vertice
+ *      v = cantidad de verticse en el grafo
+ */
 class Vertex
 {
 public:
-    Vertex();
+    // Constructor por defecto de la clase
+    Vertex() {}
+
+    // Constructor que recibe el indice del vertice y la cantidad de vertices
     Vertex(int, int);
+
+    // Funcion que dibuja el vertice en la pantalla
     void draw(sf::RenderWindow *);
 
-    sf::Vector2f getPosition()
-    {
-        sf::Vector2f position(x + radius, y + radius);
-        return position;
-    }
+    // Funcion que devuelve el vector posicion del vertice
+    sf::Vector2f getPosition();
 
-    float getX()    { return x + radius; }
-    float getY()    { return y + radius; }
+    float getX()    { return x + RADIUS; }      // Posicion real en x
+    float getY()    { return y + RADIUS; }      // Posicion real en y
 
-    int getValue()
-    {
-        return i;
-    }
+    // Funcion que devuelve el valor o numero de vertice
+    int getValue()                              { return i; }
 
-    int getRadius()
-    {
-        return radius;
-    }
+    // Funcion que devuelve el radio del vertice
+    int getRadius()                             { return RADIUS; }
 private:
-    float x;
-    float y;
+    float x;                                    // Posicion en el eje x
+    float y;                                    // Posicion en el eje y
 
-    int i;
+    int i;                                      // Numero de vertice
 
-    static const int radius = 20;
-    static constexpr float distCenter = 200;
-    static const int charSize = 30;
 
-    sf::CircleShape shape;
-    sf::Font font;
-    sf::Text text;
+
+    sf::CircleShape shape;                      // Objeto que guarda la forma del vertice
+    sf::Font font;                              // Fuente de los numeros en los vertices
+    sf::Text text;                              // Los numeros en los vertices
 };
 
 
@@ -61,8 +64,6 @@ private:
 class DirectedEdge
 {
 public:
-    DirectedEdge(int, int, double);
-
     // Constructor. Inicializa los argumentos
     DirectedEdge(int, int, double, int);
 
@@ -75,19 +76,20 @@ public:
     // Funcion que devuelve el peso
     double getWeight()  { return weight; }
 
-    void createVertex(int);
-
     // Funcion que devuelve la arista como string
     std::string toString();
 
+    // Funcion que dibuja una determinada arista
     void draw(sf::RenderWindow *);
+
+    // Funcionq ue dibuja una determinada arista y ademas, la pinta
     void draw(sf::RenderWindow *, sf::Color);
 private:
-    int v, w;
-    double weight;
-    Vertex vVertex, wVertex;
-    sf::Texture texture;
-    sf::Sprite sprite;
+    int v, w;                       // Vertices inicial y final
+    double weight;                  // Peso de la arista
+    Vertex vVertex, wVertex;        // Objetos de la clase que controla los vertices
+    sf::Texture texture;            // Objeto que guarda la imagen de la flecha
+    sf::Sprite sprite;              // Objeto que guarda el sprite de las aristas
 };
 
 /*  Clase para los grafos directos con arista pesada
@@ -98,11 +100,14 @@ private:
 class EdgeWeightedDigraph
 {
 public:
+    // Constructor por defecto
+    EdgeWeightedDigraph() {}
+
     // Constructor. Inicializa los argumentos
     EdgeWeightedDigraph(int);
 
-    // Destructor. Elimina el grafo tras ser usado.
-    ~EdgeWeightedDigraph() { delete adjacent; }
+    // Crea un nuevo grafo. Recibe como argumento la cantidad de elementos.
+    void createGraph(int);
 
     // Funcion que agrega unanueva arista de tipo "DirectedEdge" al grafo.
     void addEdge(DirectedEdge);
@@ -113,14 +118,16 @@ public:
 
     // Funcino que devuelve la cantidad de vertices
     int vertex();
+
+    // Funcion que grafica los vectores de un grafo y sus aristas
     void draw(sf::RenderWindow *);
 
+    // Destructor. Elimina el grafo tras ser usado.
+    ~EdgeWeightedDigraph() { delete adjacent; }
 private:
-    int v;
-    int adjSize;
-    std::list<DirectedEdge>  *adjacent;
-
-    std::vector<Vertex> vertexShape;
+    int v;                                  // Cantidad de vertices
+    std::list<DirectedEdge>  *adjacent;     // Arreglo de listas de adyacentes
+    std::vector<Vertex> vertexShape;        // Vector con la forma grafica de lo vectores
 };
 
 typedef EdgeWeightedDigraph Graph;

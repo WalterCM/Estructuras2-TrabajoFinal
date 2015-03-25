@@ -1,6 +1,7 @@
 
 #include "utils.hpp"
 
+
 MinIndexedPQ::MinIndexedPQ(int NMAX)
 {
     this->NMAX = NMAX;

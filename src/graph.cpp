@@ -1,17 +1,18 @@
 #include "graph.hpp"
 using namespace std;
-Vertex::Vertex() {}
 
+/*Vertex*/
+// Constructor que recibe el indice del vertice y la cantidad de vertices
 Vertex::Vertex(int i, int v)
 {
     this->i = i;
-    shape.setRadius(radius);
+    shape.setRadius(RADIUS);
 
-    x = 400 + distCenter * cos(2 * PI * i / v) - radius;
-    y = 300 + distCenter * sin(2 * PI * i / v) - radius;
+    x = WINDOW_WIDTH / 2 + DIST_CENTER * cos(2 * PI * i / v) - RADIUS;
+    y = WINDOW_HEIGHT / 2 + DIST_CENTER * sin(2 * PI * i / v) - RADIUS;
     if (v == 1) {
-        x = 400 - radius;
-        y = 300 - radius;
+        x = WINDOW_WIDTH / 2 - RADIUS;
+        y = WINDOW_HEIGHT / 2 - RADIUS;
     }
 
     shape.setPosition(x, y);
@@ -27,7 +28,7 @@ Vertex::Vertex(int i, int v)
     std::string is = " " + ss.str();
     text.setString(is);
 
-    text.setCharacterSize(charSize);
+    text.setCharacterSize(CHAR_SIZE);
     text.setColor(sf::Color::Black);
     text.setPosition(x + 3, y);
 }
@@ -39,11 +40,10 @@ void Vertex::draw(sf::RenderWindow *window)
     (*window).draw(text);
 }
 
-DirectedEdge::DirectedEdge(int v, int w, double weight)
+sf::Vector2f Vertex::getPosition()
 {
-    this->v = v;
-    this->w = w;
-    this->weight = weight;
+    sf::Vector2f position(x + RADIUS, y + RADIUS);
+    return position;
 }
 
 DirectedEdge::DirectedEdge(int v, int w, double weight, int amount) : vVertex(v, amount), wVertex(w, amount)
@@ -110,10 +110,20 @@ void DirectedEdge::draw(sf::RenderWindow *window, sf::Color color)
     (*window).draw(sprite);
 }
 
+
 EdgeWeightedDigraph::EdgeWeightedDigraph(int v)
+{
+    createGraph(v);
+}
+
+void EdgeWeightedDigraph::createGraph(int v)
 {
     this->v = v;
     adjacent = new std::list<DirectedEdge>[v];
+
+    for (Vertex i : vertexShape) {
+        vertexShape.pop_back();
+    }
 
     for (int i = 0; i < v; i++) {
         vertexShape.push_back(Vertex(i, v));
@@ -124,7 +134,6 @@ void EdgeWeightedDigraph::addEdge(DirectedEdge e)
 {
     int v = e.from();
     adjacent[v].push_back(e);
-    adjSize++;
 }
 
 std::list<DirectedEdge> EdgeWeightedDigraph::adj(int index)

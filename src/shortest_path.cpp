@@ -2,6 +2,7 @@
 #include "shortest_path.hpp"
 using namespace std;
 
+
 DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
 {
     this->s = s;
@@ -29,8 +30,11 @@ DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
 std::vector<DirectedEdge> DijkstraSP::pathTo(int v)
 {
     std::vector<DirectedEdge> path;
+    if (edge.empty()) return path;
     for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
-        path.push_back(e);
+        if (e.getWeight() != INFINITY)
+            path.push_back(e);
+
     }
     return path;
 }

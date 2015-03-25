@@ -22,7 +22,6 @@ private:
     double *dist;
     std::vector<DirectedEdge> edge;
     MinIndexedPQ pq;
-
 };
 
 #endif // SHORTEST_PATH_HPP

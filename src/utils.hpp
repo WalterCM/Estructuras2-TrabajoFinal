@@ -11,10 +11,11 @@ class MinIndexedPQ
 {
 public:
     // Constructor. Crea un MinIndexedPQ vacio el cual puede contener hasta NMAX elementos
-    MinIndexedPQ(int NMAX);
+    MinIndexedPQ(int);
 
     // Destructor. Elimina la cola despues de ser usada.
     ~MinIndexedPQ();
+
     // esta vacio?
     bool isEmpty() { return N == 0; }
 

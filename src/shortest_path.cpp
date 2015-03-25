@@ -1,7 +1,6 @@
 #include <sstream>
 
 #include "shortest_path.hpp"
-using namespace std;
 
 
 DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertices())

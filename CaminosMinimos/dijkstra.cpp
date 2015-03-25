@@ -46,16 +46,16 @@ public:
     {
         vector<DirectedEdge> temp;
 
-    for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
-        if (e.getWeight() != INFINITY)
-            temp.push_back(e);
-    }
+        for (DirectedEdge e = edge[v]; e.to() != s; e = edge[e.from()]) {
+            if (e.getWeight() != INFINITY)
+                temp.push_back(e);
+        }
 
-    list <DirectedEdge> path;
-    for (DirectedEdge e : temp)
-        path.push_front(e);
+        list <DirectedEdge> path;
+        for (DirectedEdge e : temp)
+            path.push_front(e);
 
-    return path;
+        return path;
     }
 private:
     void relax(DirectedEdge e)
@@ -65,9 +65,6 @@ private:
         if (dist[w] > dist[v] + e.getWeight()) {
             dist[w] = dist[v] + e.getWeight();
             edge[w] = e;
-
-            if (pq.contains(w)) pq.decreaseKey(w, dist[w]);
-            else                pq.insert(w, dist[w]);
         }
     }
     int s;

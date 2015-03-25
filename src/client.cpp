@@ -42,7 +42,7 @@ public:
         // Dibuja el arbol generador de color amarillo
         if (spStarted) {
 
-            for (int i = 0; i < G->vertex(); i++) {
+            for (int i = 0; i < G->vertices(); i++) {
                 ostringstream  ss;
                 ss << i;
                 out += "Desde " + sp->getSourceString() + " hasta " + ss.str() +
@@ -141,25 +141,25 @@ private:
     // Funcion que pregunta por los vertices y el peso para formar una arista, y la agrega al grafo
     void addEdge()
     {
-        if (G->vertex() == 0 || G->vertex() == 1) {
+        if (G->vertices() == 0 || G->vertices() == 1) {
             system("cls");
             cout << "\n\tError: No se puede agregar aristas. No hay suficientes vertices" << endl;
             wait();
             return;
         }
         cout << endl;
-        cout << "\tEscriba el vertice inicial(0-" << G->vertex() - 1 <<"): ";
+        cout << "\tEscriba el vertice inicial(0-" << G->vertices() - 1 <<"): ";
         int v;  cin >> v;
-        if (v >= G->vertex()) {
+        if (v >= G->vertices()) {
             system("cls");
             cout << "\n\tError: No existe ese vertice en el grafo" << endl;
             wait();
             return;
         }
 
-        cout << "\tEscriba el vertice final(0-" << G->vertex() - 1 <<"): ";
+        cout << "\tEscriba el vertice final(0-" << G->vertices() - 1 <<"): ";
         int w;  cin >> w;
-        if (w >= G->vertex()) {
+        if (w >= G->vertices()) {
             system("cls");
             cout << "\n\tError: No existe ese vertice en el grafo" << endl;
             wait();
@@ -174,13 +174,13 @@ private:
             wait();
             return;
         }
-        G->addEdge(DirectedEdge(v, w, we, G->vertex()));
+        G->addEdge(DirectedEdge(v, w, we, G->vertices()));
     }
 
     // Funcion que inicia la interfax grafica de usuario
     void startGUI()
     {
-        if (G->vertex() > 0) {
+        if (G->vertices() > 0) {
             startedGUI = true;
             window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Programa de Caminos Minimos!");
 
@@ -211,7 +211,7 @@ private:
     // Funcion que inicia el algoritmo de Dijkstra
     void startDijkstra()
     {
-        if (G->vertex() == 0) {
+        if (G->vertices() == 0) {
             cout << "\n\tError: El grafo no tiene vertices" << endl;
             wait();
             return;
@@ -220,7 +220,7 @@ private:
         int s;
         prompt();
         cin >> s;
-        if (s < G->vertex()) {
+        if (s < G->vertices()) {
             spStarted = true;
             sp = new DijkstraSP(G, s);
         } else {
@@ -241,7 +241,7 @@ private:
                 if (a != 'Y') cout << "\n\tERROR: Solo se permiten Y, y, N, n" << endl;
             } while (a != 'Y');
 
-            for (int i = 0; i < G->vertex(); i++) {
+            for (int i = 0; i < G->vertices(); i++) {
                 cout << "\n\tDesde " << s << " hasta " << i << "\t\td = ";
                 if (sp->distTo(i) == INFINITY)
                     cout << "INFINITO:" << endl;
@@ -329,7 +329,7 @@ private:
             graphFile >> edgeNum;
             for (int i = 0; i < edgeNum; i++) {
                 graphFile >> v >> w >> we;
-                G->addEdge(DirectedEdge(v, w, we, G->vertex()));
+                G->addEdge(DirectedEdge(v, w, we, G->vertices()));
             }
             graphFile.close();
         } else {

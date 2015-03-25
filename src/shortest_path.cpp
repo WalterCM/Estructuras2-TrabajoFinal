@@ -4,18 +4,18 @@
 using namespace std;
 
 
-DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
+DijkstraSP::DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertices())
 {
     this->s = s;
 
-    for (int v = 0; v < G->vertex(); v++) {
-        DirectedEdge phEdge(s, v, INFINITY, G->vertex());
+    for (int v = 0; v < G->vertices(); v++) {
+        DirectedEdge phEdge(s, v, INFINITY, G->vertices());
         edge.push_back(phEdge);
     }
 
-    dist = new double[G->vertex()];
+    dist = new double[G->vertices()];
 
-    for (int v = 0; v < G->vertex(); v++) {
+    for (int v = 0; v < G->vertices(); v++) {
         dist[v] = INFINITY;
     }
     dist[s] = 0.0;

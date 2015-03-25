@@ -5,9 +5,9 @@
 
 /*Vertex*/
 // Constructor que recibe el indice del vertice y la cantidad de vertices
-Vertex::Vertex(int i, int v)
+Vertex::Vertex(int iindex, int v)
 {
-    this->i = i;
+    this->i = iindex;
     shape.setRadius(RADIUS);
 
     x = WINDOW_WIDTH / 2 + DIST_CENTER * cos(2 * PI * i / v) - RADIUS;

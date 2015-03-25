@@ -56,7 +56,7 @@ public:
     std::list<DirectedEdge> adj(int);
 
     // Funcino que devuelve la cantidad de vertices
-    int vertex();
+    int vertices();
 private:
     int v;
     std::list<DirectedEdge>  *adjacent;

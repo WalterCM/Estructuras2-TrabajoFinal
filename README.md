@@ -9,6 +9,10 @@ Hay una version completa con interfaz grafica y varias versiones por algoritmo p
 1. Algoritmo de Dijkstra
 2. 
 
+### Programa pricipal
+
+Implementacion de un generador de caminos minimos usando el algoritmo de Dijkstra y colas de prioridad indexadas.
+
 ### Wiki
 
 [TrabajoFinal/wiki](https://github.com/WalterCM/Estructuras2-TrabajoFinal/wiki)

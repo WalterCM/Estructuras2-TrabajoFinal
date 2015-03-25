@@ -35,7 +35,7 @@ std::list<DirectedEdge> EdgeWeightedDigraph::adj(int index)
     return adjacent[index];
 }
 
-int EdgeWeightedDigraph::vertex()
+int EdgeWeightedDigraph::vertices()
 {
     return v;
 }

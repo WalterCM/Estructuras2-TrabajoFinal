@@ -13,18 +13,18 @@ const double INFINITY = numeric_limits<int>::max();
 class DijkstraSP
 {
 public:
-    DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertex())
+    DijkstraSP(EdgeWeightedDigraph *G, int s) : pq(G->vertices())
     {
         this->s = s;
 
-        for (int v = 0; v < G->vertex(); v++) {
+        for (int v = 0; v < G->vertices(); v++) {
             DirectedEdge phEdge(s, v, INFINITY);
             edge.push_back(phEdge);
         }
 
-        dist = new double[G->vertex()];
+        dist = new double[G->vertices()];
 
-        for (int v = 0; v < G->vertex(); v++) {
+        for (int v = 0; v < G->vertices(); v++) {
             dist[v] = INFINITY;
         }
         dist[s] = 0.0;
@@ -96,7 +96,7 @@ int main()
     G.addEdge(DirectedEdge(6, 4, 0.93));
 
     DijkstraSP sp(&G, 0);
-    for (int v = 0; v < G.vertex(); v++) {
+    for (int v = 0; v < G.vertices(); v++) {
         cout << "Desde 0" << " hasta " << v << "  d = " << sp.distTo(v) << ": " << endl << endl;;
         for (DirectedEdge e : sp.pathTo(v)) {
             cout << e.toString();

@@ -14,6 +14,13 @@ Implementacion de un generador de caminos minimos usando el algoritmo de Dijkstr
 [Mirror Releases](https://github.com/WalterCM/Estructuras2-TrabajoFinal/releases)  
 [Mirror Dropbox](https://www.dropbox.com/home/Caminos%20minimos)
 
+### Dependencias para compilacion
+
+Libraeria grafica SFML  
+[SFML - Downloads](http://www.sfml-dev.org/download.php6)  
+
+MinGW y -std=c++11
+
 ### Bugs conocidos
 
 - Si se re-inicializa el GUI, no aparece el texto del titulo, los creditos ni la informacion de algoritmo de Dijkstra.

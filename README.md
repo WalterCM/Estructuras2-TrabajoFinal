@@ -8,6 +8,12 @@ Hay una version completa con interfaz grafica y varias versiones por algoritmo p
 
 Implementacion de un generador de caminos minimos usando el algoritmo de Dijkstra y colas de prioridad indexadas.
 
+### Links de descarga
+
+[Programa + Codigo completo](https://github.com/WalterCM/Estructuras2-TrabajoFinal/archive/master.zip)  
+[Mirror Releases](https://github.com/WalterCM/Estructuras2-TrabajoFinal/releases)  
+[Mirror Dropbox](https://www.dropbox.com/home/Caminos%20minimos)
+
 ### Bugs conocidos
 
 - Si se re-inicializa el GUI, no aparece el texto del titulo, los creditos ni la informacion de algoritmo de Dijkstra.
